@@ -1,3 +1,5 @@
+import sys
+
 # Regular Member Test Suite for Project Raymond
 from test_components import requests
 from test_components import TestCase
@@ -22,6 +24,9 @@ random_id_number = test_config.random_id_number
 activity_code = test_config.activity_code
 hostURL = test_config.hostURL
 
+# Override host URL if it appears on command line
+if len(sys.argv) >= 2:
+    hostURL = sys.argv[1]
 
 
 # Runner
@@ -1729,7 +1734,7 @@ class get_profile_by_username___regular_member(TestCase):
     """
     def __init__(self , session=None):
         super().__init__(session)
-        self.url = hostURL + 'api/profiles/' + username
+        self.url = hostURL + 'api/profiles/' + username + '/'
 
     def test(self):
         response = api.get(self.session, self.url)
@@ -1752,7 +1757,7 @@ class get_college_role_by_username___regular_member(TestCase):
     """
     def __init__(self , session=None):
         super().__init__(session)
-        self.url = hostURL + 'api/profiles/role/' + username
+        self.url = hostURL + 'api/profiles/role/' + username + '/'
 
     def test(self):
         response = api.get(self.session, self.url)
@@ -1776,7 +1781,7 @@ class get_image___regular_member(TestCase):
     """
     def __init__(self , session=None):
         super().__init__(session)
-        self.url = hostURL + 'api/profiles/image/'
+        self.url = hostURL + 'api/profiles/Image/'
 
     def test(self):
         response = api.get(self.session, self.url)
@@ -1800,7 +1805,7 @@ class get_image_by_username___regular_member(TestCase):
     """
     def __init__(self , session=None):
         super().__init__(session)
-        self.url = hostURL + 'api/profiles/image/' + username
+        self.url = hostURL + 'api/profiles/image/' + username + '/'
 
     def test(self):
         response = api.get(self.session, self.url)
@@ -1813,66 +1818,66 @@ class get_image_by_username___regular_member(TestCase):
         
 
 # Often does not PASS due to permission issue to the image columns in WebSQL/CCT databases
-class post_image___regular_member(TestCase):
-    """ Verify that a user can upload a profile image
-    Pre-Conditions:
-    Authenticated as Regular member.
-    Expectations:
-    Endpoint -- api/profiles/image/
-    Expected Status Code -- 200 OK 
-    Expected Content -- 
-    """
+# class post_image___regular_member(TestCase):
+#     """ Verify that a user can upload a profile image
+#     Pre-Conditions:
+#     Authenticated as Regular member.
+#     Expectations:
+#     Endpoint -- api/profiles/image/
+#     Expected Status Code -- 200 OK 
+#     Expected Content -- 
+#     """
 
-    def __init__(self, session=None):
-        super().__init__(session)
-        self.url = hostURL + 'api/profiles/image/'
-        self.data = {
-            'ID': my_id_number,
-            'FILE_PATH': #File path of the image on the user's computer,
-            'FILE_NAME': #Barcode ID of the user
-        }
+#     def __init__(self, session=None):
+#         super().__init__(session)
+#         self.url = hostURL + 'api/profiles/image/'
+#         self.data = {
+#             'ID': my_id_number,
+#             'FILE_PATH': #File path of the image on the user's computer,
+#             'FILE_NAME': #Barcode ID of the user
+#         }
     
-    def test(self):
-        response = api.post(self.session, self.url, self.data)
-        if not response.status_code == 200:
-            self.log_error('Expected 200 OK, got {0}.'.format(response.status_code))
+#     def test(self):
+#         response = api.post(self.session, self.url, self.data)
+#         if not response.status_code == 200:
+#             self.log_error('Expected 200 OK, got {0}.'.format(response.status_code))
             
-    def cleanup(self):
-        self.data = {
-            'ID': my_id_number,
-            'FILE_PATH': None,
-            'FILE_NAME': None
-        }
-        d = api.post(self.session, self.url + 'reset/', self.data)
-        if not d.status_code == 200:
-            self.log_error('There was a problem performing cleanup for {0}'.format(self.test_name))
+#     def cleanup(self):
+#         self.data = {
+#             'ID': my_id_number,
+#             'FILE_PATH': None,
+#             'FILE_NAME': None
+#         }
+#         d = api.post(self.session, self.url + 'reset/', self.data)
+#         if not d.status_code == 200:
+#             self.log_error('There was a problem performing cleanup for {0}'.format(self.test_name))
 
 
 
-class post_reset_image___regular_member(TestCase):
-    """ Verify that a user can reset a profile image
-    Pre-Conditions:
-    Authenticated as Regular member.
-    Expectations:
-    Endpoint -- api/profiles/image/reset/
-    Expected Status Code -- 200 OK 
-    Expected Content -- 
-    """
+# class post_reset_image___regular_member(TestCase):
+#     """ Verify that a user can reset a profile image
+#     Pre-Conditions:
+#     Authenticated as Regular member.
+#     Expectations:
+#     Endpoint -- api/profiles/image/reset/
+#     Expected Status Code -- 200 OK 
+#     Expected Content -- 
+#     """
 
-    def __init__(self, session=None):
-        super().__init__(session)
-        self.url = hostURL + 'api/profiles/image/reset/'
-        self.data = {
-            'ID': my_id_number,
-            'FILE_PATH': None,
-            'FILE_NAME': None
-        }
-        self.requestID = -1
+#     def __init__(self, session=None):
+#         super().__init__(session)
+#         self.url = hostURL + 'api/profiles/image/reset/'
+#         self.data = {
+#             'ID': my_id_number,
+#             'FILE_PATH': None,
+#             'FILE_NAME': None
+#         }
+#         self.requestID = -1
 
-    def test(self):
-        response = api.post(self.session, self.url, self.data)
-        if not response.status_code == 200:
-            self.log_error('Expected 200 Created, got {0}.'.format(response.status_code))
+#     def test(self):
+#         response = api.post(self.session, self.url, self.data)
+#         if not response.status_code == 200:
+#             self.log_error('Expected 200 Created, got {0}.'.format(response.status_code))
             
 
 
@@ -1891,7 +1896,7 @@ class put_social_media_links___regular_member(TestCase):
         super().__init__(session)
         self.url = hostURL + 'api/profiles/facebook/'
         self.data = {
-            'facebook': #'URL of any SNS including the domain name'
+            'facebook': 'http://facebook.com' #'URL of any SNS including the domain name'
         }
         
     def test(self):
@@ -1910,7 +1915,7 @@ class put_social_media_links___regular_member(TestCase):
 
 
 class put_mobile_privacy___regular_member(TestCase):
-    """ Verify that a user can add and edit social media links
+    """ Verify that a user can set mobile phone privacy
     Pre-Conditions:
     Authenticated as Regular member.
     Expectations:
@@ -1940,7 +1945,7 @@ class put_mobile_privacy___regular_member(TestCase):
 
 
 class put_image_privacy___regular_member(TestCase):
-    """ Verify that a user can add and edit social media links
+    """ Verify that a user can modify image privacy
     Pre-Conditions:
     Authenticated as Regular member.
     Expectations:
