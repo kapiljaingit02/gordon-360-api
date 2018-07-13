@@ -98,7 +98,7 @@ namespace Gordon360.AuthorizationFilters
          * Operations
          */
          // This operation is specifically for authorizing deny and allow operations on membership requests. These two operations don't
-         // Fit in nicely with the REST specificatino which is why there is a seperate case for them.
+         // Fit in nicely with the REST specification which is why there is a seperate case for them.
          private bool canDenyAllow(string resource)
         {
             // User is admin
