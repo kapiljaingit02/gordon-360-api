@@ -60,6 +60,7 @@ class TestCase:
 
     def setup(self):
         """ Perform any setup operations"""
+        print ("{0:.<72}: ".format(self.test_name), end='', flush=True) # display test name
         return
 
     def test(self):
@@ -80,14 +81,14 @@ class TestCase:
             self.test_result = TEST_PASS
         result =  ''
         if self.test_result == TEST_PASS:
-            result = "{0}:".format(self.test_name) + colors.OKGREEN + " {0}".format(self.test_result) + colors.ENDC
+            result = colors.OKGREEN + "{0}".format(self.test_result) + colors.ENDC
             print (result)
         elif self.test_result == TEST_FAIL:
-            result = "{0}:".format(self.test_name) + colors.FAIL + " {0}".format(self.test_result) + colors.ENDC
+            result = colors.FAIL + "{0}".format(self.test_result) + colors.ENDC
             print (result)
-        if self.test_result == TEST_FAIL:
+#        if self.test_result == TEST_FAIL:
             for error in self.errors:
-                print (colors.FAIL + "\t {0}".format(error) + colors.ENDC)
+                print (colors.WARNING + "\t {0}".format(error) + colors.ENDC)
         return
 
     def cleanup(self):

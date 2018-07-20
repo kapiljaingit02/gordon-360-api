@@ -3,7 +3,15 @@
 # # # # # # # # #
 
 # Activity to use for testing
-activity_code = 'TRAS'
+#activity_code = 'TRAS'
+activity_code = 'COMPS'
+session_code = '201801'
+#role_code = 'MEMBR' #
+#            'ACT_CDE': activity_code,
+#            'SESS_CDE' : '201801',
+#            'ID_NUM': my_id_number,
+#            'PART_CDE':'MEMBR',
+#            'DATE_SENT' : '07/06/2018',
 # Id number to use for testing
 random_id_number = 50153295
 #Event or Type ID used for events testing
