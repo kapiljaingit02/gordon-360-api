@@ -15,20 +15,14 @@ namespace Gordon360.Models
 using System;
     using System.Collections.Generic;
     
-public partial class CM_SESSION_MSTR
+public partial class Dining_Student_Meal_Choice
 {
 
-    public string SESS_CDE { get; set; }
+    public int id_num { get; set; }
 
-    public string SESS_DESC { get; set; }
+    public string Meal_Choice_Id { get; set; }
 
-    public Nullable<System.DateTime> SESS_BEGN_DTE { get; set; }
-
-    public Nullable<System.DateTime> SESS_END_DTE { get; set; }
-
-    public string YRTRM_CDE_2 { get; set; }
-
-    public string YRTRM_CDE_4 { get; set; }
+    public string sess_cde { get; set; }
 
 }
 

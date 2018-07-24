@@ -133,14 +133,16 @@ warning 6002: The table/view 'CCT.dbo.360_SLIDER' does not have a primary key de
 warning 6002: The table/view 'CCT.dbo.ACCOUNT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ACCOUNT">
           <Key>
+            
             <PropertyRef Name="gordon_id" />
+            <PropertyRef Name="primary_photo" />
             <PropertyRef Name="preferred_photo" />
             <PropertyRef Name="show_pic" />
             <PropertyRef Name="Private" />
             <PropertyRef Name="ReadOnly" />
             <PropertyRef Name="is_police" />
           </Key>
-          <Property Name="account_id" Type="int" />
+          <Property Name="account_id" Type="int" Nullable="false" />
           <Property Name="gordon_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="barcode" Type="varchar" MaxLength="14" />
           <Property Name="firstname" Type="varchar" MaxLength="50" />
@@ -149,11 +151,13 @@ warning 6002: The table/view 'CCT.dbo.ACCOUNT' does not have a primary key defin
           <Property Name="AD_Username" Type="varchar" MaxLength="50" />
           <Property Name="account_type" Type="varchar" MaxLength="20" />
           <Property Name="office_hours" Type="varchar" MaxLength="75" />
+          <Property Name="primary_photo" Type="int" Nullable="false" />
           <Property Name="preferred_photo" Type="int" Nullable="false" />
           <Property Name="show_pic" Type="int" Nullable="false" />
           <Property Name="Private" Type="int" Nullable="false" />
           <Property Name="ReadOnly" Type="int" Nullable="false" />
           <Property Name="is_police" Type="int" Nullable="false" />
+          <Property Name="Chapel_Required" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CCT.dbo.Alumni' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -230,9 +234,45 @@ warning 6002: The table/view 'CCT.dbo.CM_SESSION_MSTR' does not have a primary k
             <PropertyRef Name="SESS_CDE" />
           </Key>
           <Property Name="SESS_CDE" Type="char" MaxLength="8" Nullable="false" />
-          <Property Name="SESS_DESC" Type="varchar" MaxLength="60" />
+          <Property Name="SESS_DESC" Type="varchar" MaxLength="1000" />
           <Property Name="SESS_BEGN_DTE" Type="datetime" />
           <Property Name="SESS_END_DTE" Type="datetime" />
+          <Property Name="YRTRM_CDE_2" Type="varchar" MaxLength="32" />
+          <Property Name="YRTRM_CDE_4" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CCT.dbo.Dining_Meal_Choice_Desc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Dining_Meal_Choice_Desc">
+          <Key>
+            <PropertyRef Name="Meal_Choice_Id" />
+          </Key>
+          <Property Name="Meal_Choice_Id" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Meal_Choice_Desc" Type="char" MaxLength="60" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'CCT.dbo.Dining_Meal_Plan_Id_Mapping' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Dining_Meal_Plan_Id_Mapping">
+          <Property Name="meal_plan_id" Type="varchar" MaxLength="6" />
+          <Property Name="meal_choice_id" Type="varchar" MaxLength="2" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'CCT.dbo.Dining_Mealplans' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Dining_Mealplans">
+          <Property Name="Meal_Plan_Description" Type="varchar" MaxLength="150" />
+          <Property Name="Meal_Plan_Type" Type="varchar" MaxLength="10" />
+          <Property Name="Meal_Plan_ID" Type="varchar" MaxLength="6" />
+          <Property Name="Meal_Plan_Initial_Balance" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CCT.dbo.Dining_Student_Meal_Choice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Dining_Student_Meal_Choice">
+          <Key>
+            <PropertyRef Name="id_num" />
+            <PropertyRef Name="sess_cde" />
+          </Key>
+          <Property Name="id_num" Type="int" Nullable="false" />
+          <Property Name="Meal_Choice_Id" Type="char" MaxLength="2" />
+          <Property Name="sess_cde" Type="char" MaxLength="8" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CCT.dbo.FacStaff' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -385,6 +425,10 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
           <Parameter Name="LINKEDIN" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="CURRENT_SESSION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DINING_INFO_BY_STUDENT_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="STUDENT_ID" Type="int" Mode="In" />
+          <Parameter Name="SESS_CDE" Type="char" Mode="In" />
+        </Function>
         <Function Name="DISTINCT_ACT_TYPE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SESS_CDE" Type="varchar" Mode="In" />
         </Function>
@@ -516,11 +560,13 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
     [ACCOUNT].[AD_Username] AS [AD_Username], 
     [ACCOUNT].[account_type] AS [account_type], 
     [ACCOUNT].[office_hours] AS [office_hours], 
+    [ACCOUNT].[primary_photo] AS [primary_photo], 
     [ACCOUNT].[preferred_photo] AS [preferred_photo], 
     [ACCOUNT].[show_pic] AS [show_pic], 
     [ACCOUNT].[Private] AS [Private], 
     [ACCOUNT].[ReadOnly] AS [ReadOnly], 
-    [ACCOUNT].[is_police] AS [is_police]
+    [ACCOUNT].[is_police] AS [is_police], 
+    [ACCOUNT].[Chapel_Required] AS [Chapel_Required]
     FROM [dbo].[ACCOUNT] AS [ACCOUNT]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Alumni" EntityType="Self.Alumni" store:Type="Views" store:Schema="dbo">
@@ -588,8 +634,23 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
     [CM_SESSION_MSTR].[SESS_CDE] AS [SESS_CDE], 
     [CM_SESSION_MSTR].[SESS_DESC] AS [SESS_DESC], 
     [CM_SESSION_MSTR].[SESS_BEGN_DTE] AS [SESS_BEGN_DTE], 
-    [CM_SESSION_MSTR].[SESS_END_DTE] AS [SESS_END_DTE]
+    [CM_SESSION_MSTR].[SESS_END_DTE] AS [SESS_END_DTE], 
+    [CM_SESSION_MSTR].[YRTRM_CDE_2] AS [YRTRM_CDE_2], 
+    [CM_SESSION_MSTR].[YRTRM_CDE_4] AS [YRTRM_CDE_4]
     FROM [dbo].[CM_SESSION_MSTR] AS [CM_SESSION_MSTR]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Dining_Meal_Choice_Desc" EntityType="Self.Dining_Meal_Choice_Desc" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Dining_Meal_Choice_Desc].[Meal_Choice_Id] AS [Meal_Choice_Id], 
+    [Dining_Meal_Choice_Desc].[Meal_Choice_Desc] AS [Meal_Choice_Desc]
+    FROM [dbo].[Dining_Meal_Choice_Desc] AS [Dining_Meal_Choice_Desc]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Dining_Student_Meal_Choice" EntityType="Self.Dining_Student_Meal_Choice" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Dining_Student_Meal_Choice].[id_num] AS [id_num], 
+    [Dining_Student_Meal_Choice].[Meal_Choice_Id] AS [Meal_Choice_Id], 
+    [Dining_Student_Meal_Choice].[sess_cde] AS [sess_cde]
+    FROM [dbo].[Dining_Student_Meal_Choice] AS [Dining_Student_Meal_Choice]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="FacStaff" EntityType="Self.FacStaff" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -864,6 +925,12 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
           <EntitySet Name="Student" EntityType="Gordon360.Student" />
           <FunctionImport Name="ALL_BASIC_INFO" ReturnType="Collection(Gordon360.ALL_BASIC_INFO_Result)" />
           <EntitySet Name="sysdiagrams" EntityType="Gordon360.sysdiagrams" />
+          <EntitySet Name="Dining_Meal_Choice_Desc" EntityType="Gordon360.Dining_Meal_Choice_Desc" />
+          <EntitySet Name="Dining_Student_Meal_Choice" EntityType="Gordon360.Dining_Student_Meal_Choice" />
+          <FunctionImport Name="DINING_INFO_BY_STUDENT_ID">
+            <Parameter Name="STUDENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SESS_CDE" Mode="In" Type="String" />
+          </FunctionImport>
 
         </EntityContainer>
         <ComplexType Name="ACTIVE_CLUBS_PER_SESS_ID_Result">
@@ -1258,8 +1325,9 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
             <PropertyRef Name="Private" />
             <PropertyRef Name="ReadOnly" />
             <PropertyRef Name="is_police" />
+            <PropertyRef Name="primary_photo" />
           </Key>
-          <Property Name="account_id" Type="Int32" />
+          <Property Name="account_id" Type="Int32" Nullable="false" />
           <Property Name="gordon_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="barcode" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1273,6 +1341,8 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
           <Property Name="Private" Type="Int32" Nullable="false" />
           <Property Name="ReadOnly" Type="Int32" Nullable="false" />
           <Property Name="is_police" Type="Int32" Nullable="false" />
+          <Property Name="primary_photo" Type="Int32" Nullable="false" />
+          <Property Name="Chapel_Required" Type="Int32" />
         </EntityType>
         <EntityType Name="Alumni">
           <Key>
@@ -1343,9 +1413,11 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
             <PropertyRef Name="SESS_CDE" />
           </Key>
           <Property Name="SESS_CDE" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="SESS_DESC" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="SESS_DESC" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="SESS_BEGN_DTE" Type="DateTime" Precision="3" />
           <Property Name="SESS_END_DTE" Type="DateTime" Precision="3" />
+          <Property Name="YRTRM_CDE_2" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="YRTRM_CDE_4" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="FacStaff">
           <Key>
@@ -1487,6 +1559,22 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Dining_Meal_Choice_Desc">
+          <Key>
+            <PropertyRef Name="Meal_Choice_Id" />
+          </Key>
+          <Property Name="Meal_Choice_Id" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Meal_Choice_Desc" Type="String" MaxLength="60" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Dining_Student_Meal_Choice">
+          <Key>
+            <PropertyRef Name="id_num" />
+            <PropertyRef Name="sess_cde" />
+          </Key>
+          <Property Name="id_num" Type="Int32" Nullable="false" />
+          <Property Name="Meal_Choice_Id" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="sess_cde" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1944,6 +2032,8 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
           <EntitySetMapping Name="ACCOUNT">
             <EntityTypeMapping TypeName="Gordon360.ACCOUNT">
               <MappingFragment StoreEntitySet="ACCOUNT">
+                <ScalarProperty Name="Chapel_Required" ColumnName="Chapel_Required" />
+                <ScalarProperty Name="primary_photo" ColumnName="primary_photo" />
                 <ScalarProperty Name="is_police" ColumnName="is_police" />
                 <ScalarProperty Name="ReadOnly" ColumnName="ReadOnly" />
                 <ScalarProperty Name="Private" ColumnName="Private" />
@@ -2028,6 +2118,8 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
           <EntitySetMapping Name="CM_SESSION_MSTR">
             <EntityTypeMapping TypeName="Gordon360.CM_SESSION_MSTR">
               <MappingFragment StoreEntitySet="CM_SESSION_MSTR">
+                <ScalarProperty Name="YRTRM_CDE_4" ColumnName="YRTRM_CDE_4" />
+                <ScalarProperty Name="YRTRM_CDE_2" ColumnName="YRTRM_CDE_2" />
                 <ScalarProperty Name="SESS_END_DTE" ColumnName="SESS_END_DTE" />
                 <ScalarProperty Name="SESS_BEGN_DTE" ColumnName="SESS_BEGN_DTE" />
                 <ScalarProperty Name="SESS_DESC" ColumnName="SESS_DESC" />
@@ -2183,6 +2275,24 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Dining_Meal_Choice_Desc">
+            <EntityTypeMapping TypeName="Gordon360.Dining_Meal_Choice_Desc">
+              <MappingFragment StoreEntitySet="Dining_Meal_Choice_Desc">
+                <ScalarProperty Name="Meal_Choice_Desc" ColumnName="Meal_Choice_Desc" />
+                <ScalarProperty Name="Meal_Choice_Id" ColumnName="Meal_Choice_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dining_Student_Meal_Choice">
+            <EntityTypeMapping TypeName="Gordon360.Dining_Student_Meal_Choice">
+              <MappingFragment StoreEntitySet="Dining_Student_Meal_Choice">
+                <ScalarProperty Name="sess_cde" ColumnName="sess_cde" />
+                <ScalarProperty Name="Meal_Choice_Id" ColumnName="Meal_Choice_Id" />
+                <ScalarProperty Name="id_num" ColumnName="id_num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DINING_INFO_BY_STUDENT_ID" FunctionName="Gordon360.Store.DINING_INFO_BY_STUDENT_ID" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2198,7 +2308,7 @@ warning 6002: The table/view 'CCT.dbo.Student' does not have a primary key defin
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

@@ -67,6 +67,10 @@ public partial class CCTEntities1 : DbContext
 
     public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
 
+    public virtual DbSet<Dining_Meal_Choice_Desc> Dining_Meal_Choice_Desc { get; set; }
+
+    public virtual DbSet<Dining_Student_Meal_Choice> Dining_Student_Meal_Choice { get; set; }
+
 
     public virtual ObjectResult<ACTIVE_CLUBS_PER_SESS_ID_Result> ACTIVE_CLUBS_PER_SESS_ID(string sESS_CDE)
     {
@@ -647,6 +651,23 @@ public partial class CCTEntities1 : DbContext
     {
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ALL_BASIC_INFO_Result>("ALL_BASIC_INFO");
+    }
+
+
+    public virtual int DINING_INFO_BY_STUDENT_ID(Nullable<int> sTUDENT_ID, string sESS_CDE)
+    {
+
+        var sTUDENT_IDParameter = sTUDENT_ID.HasValue ?
+            new ObjectParameter("STUDENT_ID", sTUDENT_ID) :
+            new ObjectParameter("STUDENT_ID", typeof(int));
+
+
+        var sESS_CDEParameter = sESS_CDE != null ?
+            new ObjectParameter("SESS_CDE", sESS_CDE) :
+            new ObjectParameter("SESS_CDE", typeof(string));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DINING_INFO_BY_STUDENT_ID", sTUDENT_IDParameter, sESS_CDEParameter);
     }
 
 }
