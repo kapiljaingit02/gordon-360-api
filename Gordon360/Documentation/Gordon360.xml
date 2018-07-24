@@ -53,6 +53,14 @@
             <param name="id">The identifier for the admin to be deleted</param>
             <remarks>Calls the server to make a call and remove the given admin from the database</remarks>
         </member>
+        <member name="M:Gordon360.ApiControllers.DiningController.Get(System.String,System.String)">
+            <summary>
+             Gets information about student's dining plan and balance
+            </summary>
+            <param name="id">The ID of the student</param>
+            <param name="sessionCode">Current session code</param>
+            <returns>A DiningInfo object</returns>
+        </member>
         <member name="M:Gordon360.ApiControllers.EventController.GetAllEvents">
             <summary>
             This makes use of our cached request to 25Live, which stores AllEvents
@@ -831,6 +839,27 @@
             </summary>
             <param name="admin">The admin to validate</param>
             <returns>True if the admin is valid. Throws ResourceNotFoundException if not. Exception is cauth in an Exception Filter</returns>
+        </member>
+        <member name="T:Gordon360.Services.DiningService">
+            <summary>
+            Service that allows for meal control
+            </summary>
+        </member>
+        <member name="M:Gordon360.Services.DiningService.GetBalance(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="cardHolderID"></param>
+            <param name="planID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gordon360.Services.DiningService.GetDiningPlanInfo(System.String,System.String)">
+            <summary>
+            Get information about the selected plan for the student user
+            </summary>
+            <param name="cardHolderID">Student's Gordon ID</param>
+            <param name="sessionCode">Current Session Code</param>
+            <returns></returns>
         </member>
         <member name="T:Gordon360.Services.EventService">
             <summary>
