@@ -41,9 +41,9 @@ namespace Gordon360.Services
             return millis.ToString();
         }
 
-        private static string getHash(string cardHolderID, string planID, string timestamp)
+        private static string getHash(int cardHolderID, string planID, string timestamp)
         {
-            string hashstring = (secret + issuerID + cardHolderID + planID +
+            string hashstring = (secret + issuerID + cardHolderID.ToString() + planID +
             applicationId + timestamp);
 
             SHA1 sha1 = SHA1.Create();
@@ -66,7 +66,7 @@ namespace Gordon360.Services
         /// <param name="cardHolderID"></param>
         /// <param name="planID"></param>
         /// <returns></returns>
-        public string GetBalance(string cardHolderID, string planID)
+        public string GetBalance(int cardHolderID, string planID)
         {
             ServicePointManager.Expect100Continue = false;
 
@@ -124,7 +124,7 @@ namespace Gordon360.Services
         /// <param name="cardHolderID">Student's Gordon ID</param>
         /// <param name="sessionCode">Current Session Code</param>
         /// <returns></returns>
-        public DiningViewModel GetDiningPlanInfo(string cardHolderID, string sessionCode)
+        public DiningViewModel GetDiningPlanInfo(int cardHolderID, string sessionCode)
         {
             var idParam = new SqlParameter("@STUDENT_ID", cardHolderID);
             var sessionParam = new SqlParameter("@SESS_CDE", sessionCode);

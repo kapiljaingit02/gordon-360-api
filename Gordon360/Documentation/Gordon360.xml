@@ -53,7 +53,7 @@
             <param name="id">The identifier for the admin to be deleted</param>
             <remarks>Calls the server to make a call and remove the given admin from the database</remarks>
         </member>
-        <member name="M:Gordon360.ApiControllers.DiningController.Get(System.String,System.String)">
+        <member name="M:Gordon360.ApiControllers.DiningController.Get(System.Int32,System.String)">
             <summary>
              Gets information about student's dining plan and balance
             </summary>
@@ -845,7 +845,7 @@
             Service that allows for meal control
             </summary>
         </member>
-        <member name="M:Gordon360.Services.DiningService.GetBalance(System.String,System.String)">
+        <member name="M:Gordon360.Services.DiningService.GetBalance(System.Int32,System.String)">
             <summary>
             
             </summary>
@@ -853,7 +853,7 @@
             <param name="planID"></param>
             <returns></returns>
         </member>
-        <member name="M:Gordon360.Services.DiningService.GetDiningPlanInfo(System.String,System.String)">
+        <member name="M:Gordon360.Services.DiningService.GetDiningPlanInfo(System.Int32,System.String)">
             <summary>
             Get information about the selected plan for the student user
             </summary>
