@@ -222,6 +222,8 @@ A list of IDs that are identified as gordon police.
 A subset of `ACCOUNT` that has only student records.
 ###### 360_SLIDER
 Content (images, captions, and links) for the slider on the dashboard page.
+###### DiningInfo
+Information about student's mealplans(not balance)
 
 ### Stored Procedures
 
@@ -255,6 +257,10 @@ This stored procedures is pretty simple. It moves all the relevant information f
 ###### ACT_CLUB_DEF_INSERT_TRIGGER
 
 Every time a record is inserted into the ACT_CLUB_DEF table, this trigger runs the UPDATE_ACT_INFO stored procedure. Although not clear in the name, this trigger also runs whenever a row is deleted from ACT_CLUB_DEF.
+
+### Connecting new tables/views/stored procedures to the backend
+
+WHen new database elements are needed in the API, they can be added by navigating to Models/CCT_DB_Models.edmx where you will see a diagram of all the database tables. Right click at any blank space and select "Update Model from Database...". Here you can select what you would like to add/refresh/delete from the model and allow the templates to run and auto generate code in the Models files.
 
 ## The Code
 
