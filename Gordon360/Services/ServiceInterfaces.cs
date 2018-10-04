@@ -156,5 +156,10 @@ namespace Gordon360.Services
         IEnumerable<SliderViewModel> GetSliderContent();
     }
 
+    public interface IJobsService
+    {
+        IEnumerable<JobsViewModel> Get(int id);
+    }
+
 }
 

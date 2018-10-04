@@ -115,6 +115,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Gordon360.ApiControllers.JobsController.Get(System.Int32)">
+            <summary>
+             Gets information about student's jobs
+            </summary>
+            <param name="id">The ID of the student</param>
+            <returns>A list of JobsViewModel objects</returns>
+        </member>
         <member name="M:Gordon360.Controllers.Api.ContentManagementController.GetSliderContent">
             <summary>Get all the slider content for the dashboard slider</summary>
             <returns>A list of all the slides for the slider</returns>
