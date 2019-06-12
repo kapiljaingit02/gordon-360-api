@@ -31,8 +31,8 @@ namespace Gordon360.Services
     {
         // See UnitOfWork class
         private IUnitOfWork _unitOfWork;
-        private static string issuerID = "219";
-        private static string applicationId = "000001";
+        private static string issuerID = System.Web.Configuration.WebConfigurationManager.AppSettings["bonAppetitIssuerID"];
+        private static string applicationId = System.Web.Configuration.WebConfigurationManager.AppSettings["bonAppetitApplicationID"];
         private static string secret = System.Web.Configuration.WebConfigurationManager.AppSettings["bonAppetitSecret"];
 
         public DiningService(IUnitOfWork unitOfWork)
