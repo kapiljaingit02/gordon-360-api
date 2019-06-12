@@ -33,7 +33,7 @@ namespace Gordon360.Services
         private IUnitOfWork _unitOfWork;
         private static string issuerID = "219";
         private static string applicationId = "000001";
-        private static string secret = "test";
+        private static string secret = System.Web.Configuration.WebConfigurationManager.AppSettings["bonAppetitSecret"];
 
         public DiningService(IUnitOfWork unitOfWork)
         {
@@ -42,8 +42,8 @@ namespace Gordon360.Services
 
         private static string getTimestamp()
         {
-            DateTime baseDate = new DateTime(1969, 12, 31, 20, 0, 0);
-            TimeSpan diff = DateTime.Now - baseDate;
+            DateTime baseDate = new DateTime(1970, 1, 1, 0, 0, 0);
+            TimeSpan diff = DateTime.UtcNow - baseDate;
             Int64 millis = Convert.ToInt64(diff.TotalMilliseconds);
             return millis.ToString();
         }
@@ -68,7 +68,7 @@ namespace Gordon360.Services
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="cardHolderID"></param>
         /// <param name="planID"></param>
@@ -85,7 +85,7 @@ namespace Gordon360.Services
 
                 string timestamp = getTimestamp();
 
-                // Create POST data and convert it to a byte array.  
+                // Create POST data and convert it to a byte array.
                 string postData = "issuerId=" + issuerID + "&"
                    + "cardholderId=" + cardHolderID + "&"
                    + "planId=" + planID + "&"
@@ -102,24 +102,24 @@ namespace Gordon360.Services
                 dataStream.Write(byteArray, 0, byteArray.Length);
                 dataStream.Close();
 
-                // Get the response.  
+                // Get the response.
                 WebResponse response = request.GetResponse();
                 Console.WriteLine(((HttpWebResponse)response).StatusDescription);
 
-                // Get the stream containing content returned by the server.  
+                // Get the stream containing content returned by the server.
                 dataStream = response.GetResponseStream();
 
-                // Read the content. 
+                // Read the content.
                 StreamReader reader = new StreamReader(dataStream);
                 string responseFromServer = reader.ReadToEnd();
                 JObject json = JObject.Parse(responseFromServer);
                 balance = json["balance"].ToString();
 
-                // Display the content.  
+                // Display the content.
                 Console.WriteLine(responseFromServer);
                 Console.WriteLine("Balance: " + balance);
 
-                // Clean up the streams.  
+                // Clean up the streams.
                 reader.Close();
                 dataStream.Close();
                 response.Close();
