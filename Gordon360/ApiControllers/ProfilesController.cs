@@ -673,7 +673,7 @@ namespace Gordon360.Controllers.Api
 
                     if (size1 < 3000 || size2 < 3000)
                     {
-                        return BadRequest("The ID image was lost in transit. Resubmission should attempt automatically.");
+                        return BadRequest("The ID image was lost in transit. The browser should automatically try again.");
                     }
                 }
                 return Ok();
