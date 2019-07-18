@@ -72,6 +72,10 @@ class testCase:
         authorized_session.headers.update({ "Authorization":authorization_header })
         return authorized_session
 
+    def createGuestSession(self):
+        authorized_session = requests.Session()
+        return authorized_session
+
 class Test_allMyScheduleTest(testCase):
 
 
@@ -578,20 +582,18 @@ class Test_allActivityTest(testCase):
         if not response.status_code == 200:
             pytest.fail('Expected 200 OK , got {0}.'.format(response.status_code))
             try:
-            response.json()
-        except ValueError:
-            pytest.fail('Expected Json response body, got {0}.'.format(respons.text))
-        if not (type(response.json()) is list):
-            pytest.fail('Expected list, got {0}.'.format(response.json()))
-        assert response.json()[0]["ActivityCode"] == "360"
-        assert response.json()[0]["ActivityDescription"] == "360.gordon.edu"
-        assert response.json()[0]["ActivityImagePath"] == "https://360api.gordon.edu/browseable/uploads/Default/activityImage.png"
-        assert response.json()[0]["ActivityBlurb"] == ""
-        assert response.json()[0]["ActivityURL"] == ""
-        assert response.json()[0]["ActivityType"] == "STU"
-        assert response.json()[0]["ActivityTypeDescription"] == "Student Life"
-        assert response.json()[0]["Privacy"] == False
-        assert response.json()[0]["ActivityJoinInfo"] == ""
+                response.json()
+            except ValueError:
+                pytest.fail('Expected Json response body, got {0}.'.format(respons.text))
+        assert response.json()["ActivityCode"] == "360"
+        assert response.json()["ActivityDescription"] == "360.gordon.edu"
+        assert response.json()["ActivityImagePath"] == "https://360api.gordon.edu/browseable/uploads/Default/activityImage.png"
+        assert response.json()["ActivityBlurb"] == ""
+        assert response.json()["ActivityURL"] == ""
+        assert response.json()["ActivityType"] == "STU"
+        assert response.json()["ActivityTypeDescription"] == "Student Life"
+        assert response.json()["Privacy"] == False
+        assert response.json()["ActivityJoinInfo"] == ""
         
 
 #    Verify that an activity leader can a single activity.
