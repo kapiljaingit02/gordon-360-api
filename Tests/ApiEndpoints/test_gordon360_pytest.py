@@ -544,6 +544,13 @@ class Test_allActivityTest(testCase):
         assert response.json()[0]["Privacy"] == False
         assert response.json()[0]["ActivityJoinInfo"] == ""
 
+#    Verify that a Guest can get all activities but only public info.
+#    Endpoint -- api/activities/
+#    Expected Status Code -- 200 OK
+#    Expected Response Body -- List of activities
+    def test_get_all_activities___Guest(self):
+        
+
 #    Verify that an activity leader can a single activity.
 #    Endpoint -- api/activities/{activityCode}
 #    Expected Status Code -- 200 OK
