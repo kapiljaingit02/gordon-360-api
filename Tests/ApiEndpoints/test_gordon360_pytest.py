@@ -2123,6 +2123,39 @@ class Test_allProfileTest(testCase):
         except ValueError:
             pytest.fail('Expected Json response body, got{0}.'.format(response.text))
 
+#    Verify that a user gets all the correct profile information
+#    Endpoint -- api/profiles/ ???
+#    Expected Status Code -- 200 OK
+#    Expected Respones Body -- A json object of information on own profile ???
+
+    def test_get_my_profile_info(self):
+        self.session = self.createAuthorizedSession(username, password)
+        self.url = hostURL + 'api/profiles/' # this may not be what returns all this JSON!!
+        response = api.get(self.session, self.url)
+        if not response.status_code == 200:
+            pytest.fail('Expected 200 OK, got {0}.'.format(response.status_code))
+        try:
+            assert response.json()['Mail_Location'] == '?'
+            assert response.json()['FirstName'] == '360'
+            assert response.json()['LastName'] == 'StudentTest'
+            assert response.json()['Nickname'] == '?'
+            assert response.json()['Class'] == '?'
+            assert response.json()['Major1Description'] == '?'
+            assert response.json()['Major2Description'] == '?'
+            assert response.json()['Major3Description'] == '?'
+            assert response.json()['Minor1Description'] == '?'
+            assert response.json()['Minor2Description'] == '?'
+            assert response.json()['Minor3Description'] == '?'
+            assert response.json()['HomeCity'] == '?'
+            assert response.json()['HomeState'] == '?'
+            assert response.json()['Country'] == '?'
+            assert response.json()['KeepPrivate'] == '?'
+            assert response.json()['Email'] == '?'
+
+
+        except ValueError:
+            pytest.fail('Expected Json response body, got {0}.'.format(response.text))
+
 #    Verify that an user can get a profile image of the current user
 #    Endpoint -- api/profiles/image
 #    Expected Status Code -- 200 Ok
