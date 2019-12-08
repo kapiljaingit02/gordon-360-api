@@ -58,7 +58,6 @@ namespace Gordon360.Static.Methods
             }
             catch (Exception e)
             {
-                //
                 Debug.WriteLine("Failed to parse JSON data:");
                 Debug.WriteLine(e.Message);
             }
@@ -75,9 +74,7 @@ namespace Gordon360.Static.Methods
                 result = RawSqlQuery<FacStaff>.query(SQLQuery.ALL_FACULTY_STAFF_REQUEST);
             }
             catch
-            {
-                //
-            }
+            { }
             // Filter out results with null or empty active directory names
             return result;
         }
@@ -107,22 +104,31 @@ namespace Gordon360.Static.Methods
             return publicFacStaffData;
         }
 
-        public static IEnumerable<PublicAlumniProfileViewModel> GetAllPublicAlumni()
+        public static JObject GetAllPublicAlumni()
         {
             // Create a list to be filled
-            IEnumerable<PublicAlumniProfileViewModel> result = null;
+            // JSON string result
+            IEnumerable<string> fragmentedString = null;
+            string result = null;
+            JObject publicAlumniData = null;
 
             try
             {
                 // Attempt to query the DB
-                result = RawSqlQuery<PublicAlumniProfileViewModel>.query(SQLQuery.ALL_PUBLIC_ALUMNI_REQUEST);
+                fragmentedString = RawSqlQuery<string>.query(SQLQuery.ALL_PUBLIC_ALUMNI_REQUEST).Cast<string>();
+                foreach (string fragment in fragmentedString)
+                {
+                    result = result + fragment;
+                }
+                publicAlumniData = JObject.Parse(result);
             }
-            catch
+            catch (Exception e)
             {
-                //
+                Debug.WriteLine("Failed to parse JSON data:");
+                Debug.WriteLine(e.Message);
             }
             // Filter out results with null or empty active directory names
-            return result;
+            return publicAlumniData;
         }
 
         public static IEnumerable<Alumni> GetAllAlumni()
@@ -134,9 +140,7 @@ namespace Gordon360.Static.Methods
                 result = RawSqlQuery<Alumni>.query(SQLQuery.ALL_ALUMNI_REQUEST);
             }
             catch
-            {
-                //
-            }
+            { }
             // Filter out results with null or empty active directory names
             return result;
         }
@@ -150,9 +154,7 @@ namespace Gordon360.Static.Methods
                 result = RawSqlQuery<BasicInfoViewModel>.query(SQLQuery.ALL_BASIC_INFO_NOT_ALUM);
             }
             catch
-            {
-                //
-            }
+            { }
             // Filter out results with null or empty active directory names
             return result;
         }
