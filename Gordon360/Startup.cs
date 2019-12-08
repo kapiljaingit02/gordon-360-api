@@ -136,7 +136,7 @@ namespace Gordon360
 
             JObject publicStudent = Helpers.GetAllPublicStudents();
             IEnumerable<PublicFacultyStaffProfileViewModel> publicFacStaff = Helpers.GetAllPublicFacultyStaff();
-            IEnumerable<PublicAlumniProfileViewModel> publicAlumni = Helpers.GetAllPublicAlumni();
+            JObject publicAlumni = Helpers.GetAllPublicAlumni();
             IList<JObject> allPublicAccounts = new List<JObject>();
             IList<JObject> allPublicAccountsWithoutAlumni = new List<JObject>();
             IList<JObject> allPublicAccountsWithoutCurrentStudents = new List<JObject>();
@@ -182,7 +182,7 @@ namespace Gordon360
                 allPublicAccountsWithoutAlumni.Add(JObject.FromObject(theFacStaff));
                 allPublicAccountsWithoutCurrentStudents.Add(JObject.FromObject(theFacStaff));
             }
-            foreach (PublicAlumniProfileViewModel anAlum in Data.PublicAlumniData)
+            foreach (JToken anAlum in Data.PublicAlumniData.SelectToken("Alumni"))
             {
                 JObject theAlum = JObject.FromObject(anAlum);
                 theAlum.Add("Type", "Alum");

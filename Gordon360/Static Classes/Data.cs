@@ -22,7 +22,7 @@ namespace Gordon360.Static.Data
         // All public account info
         public static JObject PublicStudentData { get; set; }
         public static IEnumerable<PublicFacultyStaffProfileViewModel> PublicFacultyStaffData { get; set; }
-        public static IEnumerable<PublicAlumniProfileViewModel> PublicAlumniData { get; set; }
+        public static JObject PublicAlumniData { get; set; }
         public static IEnumerable<JObject> AllPublicAccounts { get; set; }
         public static IEnumerable<JObject> AllPublicAccountsWithoutAlumni { get; set; }
         public static IEnumerable<JObject> AllPublicAccountsWithoutCurrentStudents { get; set; }
