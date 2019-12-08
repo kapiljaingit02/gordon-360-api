@@ -29,5 +29,6 @@ namespace Gordon360.Models
         public string Description { get; set; }
         public Nullable<bool> GroupAdmin { get; set; }
         public int AccountPrivate { get; set; }
+        public string Mail_Location { get; set; }
     }
 }
