@@ -211,6 +211,7 @@
     <Compile Include="ApiControllers\MembershipRequestController.cs" />
     <Compile Include="ApiControllers\MyScheduleController.cs" />
     <Compile Include="ApiControllers\ScheduleControlController.cs" />
+    <Compile Include="ApiControllers\StudentNewsController.cs" />
     <Compile Include="Models\ACCOUNT.cs">
       <DependentUpon>CCT_DB_Models.tt</DependentUpon>
     </Compile>
