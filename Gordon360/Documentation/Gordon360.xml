@@ -170,6 +170,22 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Gordon360.ApiControllers.StudentNewsController.GetStudentNews">
+            <summary>
+                Get today's student news
+            </summary>
+            <returns>
+                A JSON object containing today's student news
+            </returns>
+        </member>
+        <member name="M:Gordon360.ApiControllers.StudentNewsController.SubmitStudentNews(Gordon360.Models.StudentNewsItemModel)">
+            <summary>
+                Submit a student news item
+            </summary>
+            <returns>
+                An HTTP result
+            </returns>
+        </member>
         <member name="M:Gordon360.Controllers.Api.ContentManagementController.GetSliderContent">
             <summary>Get all the slider content for the dashboard slider</summary>
             <returns>A list of all the slides for the slider</returns>

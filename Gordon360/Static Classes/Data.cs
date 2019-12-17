@@ -32,5 +32,7 @@ namespace Gordon360.Static.Data
         public static IEnumerable<FacStaff> FacultyStaffData { get; set; }
         public static IEnumerable<Alumni> AlumniData { get; set; }
 
+        // Student News
+        public static IEnumerable<StudentNewsItemModel> StudentNewsData { get; set; }
     }
 }
