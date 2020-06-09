@@ -201,5 +201,10 @@ namespace Gordon360.Services
         IEnumerable<StudentNewsCategoryViewModel> GetNewsCategories();
     }
 
+    public interface IWellnessService
+    {
+        IEnumerable<WellnessViewModel> GetStatus(string id);
+    }
+
 }
 

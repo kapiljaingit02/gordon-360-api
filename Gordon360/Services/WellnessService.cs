@@ -42,7 +42,14 @@ namespace Gordon360.Services
                 throw new ResourceNotFoundException() { ExceptionMessage = "The data was not found." };
             }
             
-            return result;
+            var wellnessModel = result.Select(x =>
+            {
+                WellnessViewModel y = new WellnessViewModel();
+                y.currentStatus = x.currentStatus ?? null;
+                return y;
+            });
+
+            return wellnessModel;
 
         }
     }

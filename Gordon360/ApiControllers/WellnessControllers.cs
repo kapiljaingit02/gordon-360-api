@@ -16,20 +16,20 @@ namespace Gordon360.Controllers.Api
         private IAccountService _accountService;
         private IRoleCheckingService _roleCheckingService;
 
-        private IWellnessService _WellnessService;
+        private IWellnessService _wellnessService;
 
         public WellnessController()
         {
             var _unitOfWork = new UnitOfWork();
-            _WellnessService = new WellnessService(_unitOfWork);
+            _wellnessService = new WellnessService(_unitOfWork);
             _profileService = new ProfileService(_unitOfWork);
             _accountService = new AccountService(_unitOfWork);
             _roleCheckingService = new RoleCheckingService(_unitOfWork);
         }
 
-        public WellnessController(IVictoryPromiseService victoryPromiseService)
+        public WellnessController(IWellnessService wellnessService)
         {
-             _WellnessService = WellnessService;
+             _wellnessService = wellnessService;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Gordon360.Controllers.Api
 
             var id = _accountService.GetAccountByUsername(username).GordonID;
 
-            var result = _WellnessService.GetStatus(id);
+            var result = _wellnessService.GetStatus(id);
 
             if (result == null)
             {
