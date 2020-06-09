@@ -204,6 +204,7 @@ namespace Gordon360.Services
     public interface IWellnessService
     {
         IEnumerable<WellnessViewModel> GetStatus(string id);
+       //WellnessViewModel GetStatus(string id);
     }
 
 }

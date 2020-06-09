@@ -29,27 +29,33 @@ namespace Gordon360.Services
 
         public IEnumerable<WellnessViewModel> GetStatus(string id)
         {
-            var query = _unitOfWork.AccountRepository.FirstOrDefault(x => x.gordon_id == id);
-            if (query == null)
-            {
-                throw new ResourceNotFoundException() { ExceptionMessage = "The account was not found." };
-            }
+            // var query = _unitOfWork.AccountRepository.FirstOrDefault(x => x.gordon_id == id);
+            // if (query == null)
+            // {
+            //     throw new ResourceNotFoundException() { ExceptionMessage = "The account was not found." };
+            // }
 
-            var idParam = new SqlParameter("@ID", id);
-            var result = true //RawSqlQuery<WellnessViewModel>.query("VICTORY_PROMISE_BY_STUDENT_ID @ID", idParam); //run stored procedure
-            if (result == null)
-            {
-                throw new ResourceNotFoundException() { ExceptionMessage = "The data was not found." };
-            }
+            // var idParam = new SqlParameter("@ID", id);
+            // var result = true //RawSqlQuery<WellnessViewModel>.query("VICTORY_PROMISE_BY_STUDENT_ID @ID", idParam); //run stored procedure
+            // if (result == null)
+            // {
+            //     throw new ResourceNotFoundException() { ExceptionMessage = "The data was not found." };
+            // }
             
-            var wellnessModel = result.Select(x =>
-            {
-                WellnessViewModel y = new WellnessViewModel();
-                y.currentStatus = x.currentStatus ?? null;
-                return y;
-            });
+            // var wellnessModel = result.Select(x =>
+            // {
+            //     WellnessViewModel y = new WellnessViewModel();
+            //     y.currentStatus = x.currentStatus ?? null;
+            //     return y;
+            // });
 
-            return wellnessModel;
+        
+                WellnessViewModel y = new WellnessViewModel();
+                y.currentStatus = true;
+                
+            
+
+            return y;
 
         }
     }

@@ -35,7 +35,7 @@ namespace Gordon360.Repositories
         private IRepository<DiningInfo> _DiningInfoRepository;
         private IRepository<ERROR_LOG> _ErrorLogRepository;
         private IRepository<Schedule_Control> _ScheduleControlRepository;
-        private IRepository<WELLNESS_CHECK_BY_STUDENT_ID_Result> _WellnessCheckByStudentIDRepository;
+        //private IRepository<Wellness_Check> _WellnessCheckRepository;
 
         private CCTEntities1 _context;
 
@@ -116,13 +116,13 @@ namespace Gordon360.Repositories
             }
         }
 
-         IRepository<WELLNESS_CHECK_BY_STUDENT_ID_Result> IUnitOfWork.WellnessCheckByStudentIDRepository
-        {
-            get
-            {
-                return _WellnessCheckByStudentIDRepository ?? (_WellnessCheckByStudentIDRepository = new GenericRepository<WELLNESS_CHECK_BY_STUDENT_ID_Result>(_context));
-            }
-        }
+        // IRepository<Wellness_Check> IUnitOfWork.WellnessCheckRepository
+        // {
+        //     get
+        //     {
+        //          return _WellnessCheckRepository ?? (_WellnessCheckRepository = new GenericRepository<WELLNESS_CHECK>(_context));
+        //     }
+        // }
         //IRepository<STUDENT_JOBS_PER_ID_NUM_Result> IUnitOfWork.StudentEmploymentByStudentIDRepository
         //{
         //    get
